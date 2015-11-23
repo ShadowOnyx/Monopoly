@@ -4,7 +4,14 @@ public class Runner
 		static ArrayList <Squares> squares = new ArrayList <Squares>();
 		public static void main(String[] args)
 			{
-
+			int currentPosition = 	
+			boolean stillPlaying=true;	
+			while(stillPlaying)
+				{	
+				int dieRoll = Human.rollDice();	
+				Human.doTurn(dieRoll, currentPosition);
+				System.out.println("You landed on ");
+				}
 			}
 		public static void createArray()
 			{
