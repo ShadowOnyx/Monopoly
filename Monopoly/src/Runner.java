@@ -3,6 +3,7 @@ public class Runner
 	{
 		static ArrayList <Squares> board = new ArrayList <Squares>();
 		static ArrayList <Players> players = new ArrayList<Players>();
+		static ArrayList <String> ownedByPlayer = new ArrayList<String>();
 		public static void main(String[] args)
 			{
 			createArray();
@@ -17,6 +18,8 @@ public class Runner
 				currentPosition = players.get(0).getCurrentLocation();
 				System.out.println("You rolled a "+dieRoll);
 				System.out.println("You landed on "+board.get(currentPosition).getName());
+				System.out.println("Inventory:");
+				displayInventory();
 				if(board.get(currentPosition).isCanBeOwned()==true)
 					{
 					if(players.get(0).getMoney()>((Buyable)board.get(currentPosition)).getPrice())
@@ -29,6 +32,7 @@ public class Runner
 							{
 							players.get(0).setMoney(players.get(0).getMoney()-((Buyable)board.get(currentPosition)).getPrice());
 							((Buyable) board.get(currentPosition)).setOwned(true);
+							ownedByPlayer.add(new String(board.get(currentPosition).getName()));
 							System.out.println("Property purchased, you now have "+players.get(0).getMoney()+"$");	
 							}
 						else
@@ -94,6 +98,13 @@ public class Runner
 			
 			
 			
+			}
+		public static void displayInventory()
+			{
+			for(String i:ownedByPlayer)
+				{
+				System.out.println("\t"+i );	
+				}
 			}
 
 	}
