@@ -11,7 +11,13 @@ public abstract class Players
 		}
 	public static int doTurn(int r, int p)
 		{
-		int newPosition = r+p%40;
+		int newPosition = (r+p)%40;
 		return newPosition;
 		}
+	public int getCurrentLocation() {
+		return currentLocation;
+	}
+	public void setCurrentLocation(int currentLocation) {
+		this.currentLocation = currentLocation;
+	}
 	}
