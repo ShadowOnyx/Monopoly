@@ -11,6 +11,9 @@ public class Runner
 			boolean stillPlaying = true;
 			System.out.println("Welcome to Monopoly");
 			System.out.println();
+			System.out.println("You're on "+board.get(currentPosition).getName());
+			Scanner userInput = new Scanner(System.in);
+			String idunknow = userInput.nextLine();
 			while(stillPlaying)
 				{	
 				int dieRoll = Human.rollDice();	
@@ -18,22 +21,25 @@ public class Runner
 				currentPosition = players.get(0).getCurrentLocation();
 				System.out.println("You rolled a "+dieRoll);
 				System.out.println("You landed on "+board.get(currentPosition).getName());
-				System.out.println("Inventory:");
-				displayInventory();
+				if(ownedByPlayer.size()>0)
+					{
+					System.out.println("Inventory:");
+					displayInventory();
+					}
 				if(board.get(currentPosition).isCanBeOwned()==true)
 					{
-					if(players.get(0).getMoney()>((Buyable)board.get(currentPosition)).getPrice())
+					if((players.get(0).getMoney()>((Buyable)board.get(currentPosition)).getPrice())&&(((Buyable) board.get(currentPosition)).isOwned()==false))
 						{
-						System.out.println(board.get(currentPosition).getName()+" costs "+(((Buyable) board.get(currentPosition)).getPrice()+"$"));
-						System.out.println("You have: "+players.get(0).getMoney()+"$ Would you like to purchase it? (Y/N)");
-						Scanner userInput = new Scanner(System.in);
-						String answer = userInput.nextLine();
+						System.out.println(board.get(currentPosition).getName()+" costs $"+(((Buyable) board.get(currentPosition)).getPrice()));
+						System.out.println("You have: $"+players.get(0).getMoney()+" Would you like to purchase it? (Y/N)");
+						Scanner userInput1 = new Scanner(System.in);
+						String answer = userInput1.nextLine();
 						if(answer.equals("Y")||answer.equals("y"))
 							{
 							players.get(0).setMoney(players.get(0).getMoney()-((Buyable)board.get(currentPosition)).getPrice());
 							((Buyable) board.get(currentPosition)).setOwned(true);
 							ownedByPlayer.add(new String(board.get(currentPosition).getName()));
-							System.out.println("Property purchased, you now have "+players.get(0).getMoney()+"$");	
+							System.out.println("Property purchased, you now have $"+players.get(0).getMoney());	
 							}
 						else
 							{
@@ -42,14 +48,20 @@ public class Runner
 						}
 					else
 						{
-						System.out.println(board.get(currentPosition).getName()+" costs "+(((Buyable) board.get(currentPosition)).getPrice()+"$"));
-						System.out.println("You have: "+players.get(0).getMoney()+"$, and cannot purchase :(");
+						if(((Buyable) board.get(currentPosition)).isOwned()==false&&players.get(0).getMoney()<((Buyable)board.get(currentPosition)).getPrice())
+							{
+							System.out.println(board.get(currentPosition).getName()+" costs $"+(((Buyable) board.get(currentPosition)).getPrice()));
+							System.out.println("You have: $"+players.get(0).getMoney()+", and cannot purchase :(");
+							}
+						else if(((Buyable) board.get(currentPosition)).isOwned()==true)
+							{
+							System.out.println("Property is already owned");
+							}
 						}
-						}
-				Scanner userInput = new Scanner(System.in);
-				String idunknow = userInput.nextLine();
+					}
+				Scanner userInput2 = new Scanner(System.in);
+				String idunknow1 = userInput2.nextLine();
 				}
-		
 			}
 		public static void createArray()
 			{
@@ -105,6 +117,7 @@ public class Runner
 				{
 				System.out.println("\t"+i );	
 				}
+			System.out.println();
 			}
 
 	}
