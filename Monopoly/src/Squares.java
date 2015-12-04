@@ -5,21 +5,14 @@ public abstract class Squares
 	protected int arrayLocation;
 	protected String color;
 	protected String name;
-	protected boolean canBeOwned;
 	
 	
 	
 	
 	
 	
-	public boolean isCanBeOwned()
-		{
-			return canBeOwned;
-		}
-	public void setCanBeOwned(boolean canBeOwned)
-		{
-			this.canBeOwned = canBeOwned;
-		}
+	
+	
 	public int getArrayLocation() {
 		return arrayLocation;
 	}
