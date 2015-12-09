@@ -4,6 +4,7 @@ public class Runner
 		static ArrayList <Squares> board = new ArrayList <Squares>();
 		static ArrayList <Players> players = new ArrayList<Players>();
 		static ArrayList <String> ownedByPlayer = new ArrayList<String>();
+		static String currency;
 		
 		public static void main(String[] args)
 			{
@@ -29,8 +30,8 @@ public class Runner
 					{
 					if((players.get(0).getMoney()>((Buyable)board.get(currentPosition)).getPrice())&&(((Buyable) board.get(currentPosition)).isOwned()==false))
 						{
-						System.out.println(board.get(currentPosition).getName()+" costs "+(((Buyable) board.get(currentPosition)).getPrice())+" credits");
-						System.out.println("You have: "+players.get(0).getMoney()+" credits, would you like to purchase it? (Y/N)");
+						System.out.println(board.get(currentPosition).getName()+" costs "+(((Buyable) board.get(currentPosition)).getPrice())+" "+currency);
+						System.out.println("You have: "+players.get(0).getMoney()+" "+currency+", would you like to purchase it? (Y/N)");
 						Scanner userInput1 = new Scanner(System.in);
 						String answerToBuy = userInput1.nextLine();
 						if(answerToBuy.equals("Y")||answerToBuy.equals("y"))
@@ -38,7 +39,7 @@ public class Runner
 							players.get(0).setMoney(players.get(0).getMoney()-((Buyable)board.get(currentPosition)).getPrice());
 							((Buyable) board.get(currentPosition)).setOwned(true);
 							ownedByPlayer.add(new String(board.get(currentPosition).getName()));
-							System.out.println("Property purchased, you now have "+players.get(0).getMoney()+" credits");	
+							System.out.println("Property purchased, you now have "+players.get(0).getMoney()+" "+currency);	
 							}
 						else
 							{
@@ -49,8 +50,8 @@ public class Runner
 						{
 						if(((Buyable) board.get(currentPosition)).isOwned()==false&&players.get(0).getMoney()<((Buyable)board.get(currentPosition)).getPrice())
 							{
-							System.out.println(board.get(currentPosition).getName()+" costs "+(((Buyable) board.get(currentPosition)).getPrice())+" credits");
-							System.out.println("You have: "+players.get(0).getMoney()+" credits, and cannot purchase :(");
+							System.out.println(board.get(currentPosition).getName()+" costs "+(((Buyable) board.get(currentPosition)).getPrice())+" "+currency);
+							System.out.println("You have: "+players.get(0).getMoney()+" "+currency+", and cannot purchase :(");
 							}
 						else if(((Buyable) board.get(currentPosition)).isOwned()==true)
 							{
@@ -64,7 +65,7 @@ public class Runner
 			}
 		public static int chooseBoard()
 			{
-			System.out.println("Welcome to Star Wars Monopoly");
+			System.out.println("Welcome to Monopoly");
 			System.out.println("What version would you like to play? 1) Original 2) Star Wars 3)Random");	
 			Scanner userInput3 = new Scanner(System.in);
 			int answer = userInput3.nextInt();
@@ -83,6 +84,7 @@ public class Runner
 			{
 			if(answer==2)
 				{
+				currency="credits";
 				players.add(new Human(0,1500));
 				board.add(new NonBuyable(0,"GO"));
 				board.add(new Colored(1,"Dagobah - Swamp", "Purple",60,false));
@@ -127,6 +129,7 @@ public class Runner
 				}
 			if(answer==1)
 				{
+				currency="dollars";
 				players.add(new Human(0,1500));
 				board.add(new NonBuyable(0,"GO"));
 				board.add(new Colored(1,"Medditerranean Avenue", "Brown",60,false));
