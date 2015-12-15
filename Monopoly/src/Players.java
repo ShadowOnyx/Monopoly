@@ -13,15 +13,29 @@ public abstract class Players
 	
 	
 	
-	public static int doTurn(int r, int p)
+	public static int doTurn(int roll, int p, boolean rev)
 		{
-		if(r+p>40)
+		int newPosition=0;
+		if(rev==false)
 			{
-			System.out.println("You passed GO, collect 200");
-			Runner.players.get(0).setMoney(Runner.players.get(0).getMoney()+200);	
+			if(roll+p>40)
+				{
+				System.out.println("You passed GO, collect 200");
+				Runner.players.get(0).setMoney(Runner.players.get(0).getMoney()+200);	
+				}
+			newPosition = (roll+p)%40;
+			return newPosition;	
 			}
-		int newPosition = (r+p)%40;
-		return newPosition;
+		else
+			{
+			if(p-roll<0)
+				{
+				
+				System.out.println("You passed GO, but will not receive 200");
+				return newPosition=40-Math.abs(p-roll);
+				}
+			}
+		return newPosition=p-roll;
 		}
 	public int getCurrentLocation() 
 		{

@@ -5,7 +5,7 @@ public class Runner
 		static ArrayList <Players> players = new ArrayList<Players>();
 		static ArrayList <String> ownedByPlayer = new ArrayList<String>();
 		static String currency;
-		
+		static boolean reversing=false;
 		public static void main(String[] args)
 			{
 			createArray(chooseBoard());
@@ -17,7 +17,7 @@ public class Runner
 			while(stillPlaying)
 				{	
 				int dieRoll = Human.rollDice();	
-				players.get(0).setCurrentLocation(Players.doTurn(dieRoll, currentPosition));
+				players.get(0).setCurrentLocation(Players.doTurn(dieRoll, currentPosition, reversing));
 				currentPosition = players.get(0).getCurrentLocation();
 				System.out.println("You rolled a "+dieRoll);
 				System.out.println("You landed on "+board.get(currentPosition).getName());
@@ -25,6 +25,16 @@ public class Runner
 					{  
 					System.out.println("Inventory:");
 					displayInventory();
+					}
+				if(currentPosition==10)
+					{
+					System.out.println();
+					System.out.println("You are now in reverse");
+					System.out.println();
+					if(reversing==true)
+						reversing=false;
+					else
+						reversing=true;
 					}
 				if(board.get(currentPosition) instanceof Buyable)
 					{
